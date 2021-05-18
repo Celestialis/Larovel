@@ -17,3 +17,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/hello/{name}', function(string $name) {
+    return "Hello, " . $name;
+});
+
+Route::get('/about', function() {
+    return "Laravel Project";
+});
+
+Route::get('/news', function() {
+    return "News Laravel";
+});
