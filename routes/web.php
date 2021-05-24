@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -21,10 +26,26 @@ Route::get('/hello/{name}', function(string $name) {
     return "Hello, " . $name;
 });
 
-Route::get('/about', function() {
-    return "Laravel Project";
+//admin
+Route::group(['prefix' => 'admin'], function() {
+	Route::resource('/categories', AdminCategoryController::class);
+	Route::resource('/news', AdminNewsController::class);
 });
 
-Route::get('/news', function() {
-    return "News Laravel";
+//news
+Route::get('/news', [NewsController::class, 'index'])
+	->name('news');
+Route::get('/news/{id}', [NewsController::class, 'show'])
+	->where('id', '\d+')
+    ->name('news.show');
+
+//categories
+Route::get('/categories', [CategoryController::class, 'index'])
+	->name('categories');
+Route::get('/categories/{id}', [CategoryController::class, 'show'])
+	->where('id', '\d+')
+    ->name('categories.show');
+
+Route::get('/about', function() {
+	return "Laravel Project";
 });
