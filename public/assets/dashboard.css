@@ -1,0 +1,158 @@
+.blank {
+    height: 400px;
+    margin: 0 25px;
+}
+
+.header {
+    height: 100px;
+    border-bottom: 1px solid #ececec;
+}
+
+.headerInside {
+    height: inherit;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.headerInside .logo {
+    color: #222;
+    width: 165px;
+    line-height: 51px;
+    background: url(../images/logo.png) no-repeat;
+    font-size: 27px;
+    font-weight: 300;
+    padding-left: 60px;
+}
+
+.headerInside .logo span {
+    color: #f16d7f;
+    font-weight: 400;
+}
+
+.headerInside a {
+    text-decoration: none;
+}
+
+.searchWrap {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.searchWrap input {
+    height: inherit;
+    padding: 0 3px;
+    border: none;
+    outline: none;
+}
+
+.searchWrap button {
+    height: inherit;
+    padding: 0 8px;
+    border: 0;
+    background: none;
+    border-left: 1px solid #e6e6e6;
+}
+
+.searchBrowse {
+    height: inherit;
+    padding: 12px;
+    font-size: 14px;
+    color: #222222;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    border-right: 1px solid #e6e6e6;
+}
+
+.headerCart {
+    margin-left: auto;
+    margin-right: 25px;
+}
+
+.accountBtn {
+    padding: 15px;
+    background-color: #f16d7f;
+    color: white;
+    border: none;
+}
+
+.NavContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: top;
+}
+
+.nav {
+    display: flex;
+    width: 200px;
+    height: 320px;
+}
+
+.Navigation .logo {
+    color: #222;
+    font-weight: 300;
+}
+
+.Navigation .logo span {
+    color: #f16d7f;
+    font-weight: 400;
+}
+
+.Navigation a {
+    text-decoration: none;
+}
+
+.content {
+    margin-top: 10px;
+    width: 1100px;
+    height: 320px;
+}
+
+.copyrights {
+    height: 80px;
+    background: #e6e6e6;
+}
+
+.copyrightsWrap {
+    color: #7a7a7a;
+    height: inherit;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.copyrightsRight {
+    margin-right: 5px;
+    display: flex;
+    width: 200px;
+    justify-content: space-between;
+}
+
+.copyrightsLeft {
+    margin-left: 5px;
+}
+
+.copyrightsRight a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.copyrightsRight i {
+    width: 32px;
+    height: 32px;
+    background: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.copyrightsRight i:hover {
+    color: white;
+    background: #f16d7f;
+}

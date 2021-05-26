@@ -15,19 +15,21 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\AboutController as AdminAboutController;
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
 
-Route::get('/hello/{name}', function(string $name) {
-    return "Hello, " . $name;
+Route::get('/hello/{name}', function (string $name) {
+	return "Hello, " . $name;
 });
 
 //admin
-Route::group(['prefix' => 'admin'], function() {
+Route::group(['prefix' => 'admin'], function () {
 	Route::resource('/categories', AdminCategoryController::class);
 	Route::resource('/news', AdminNewsController::class);
 });
@@ -37,15 +39,18 @@ Route::get('/news', [NewsController::class, 'index'])
 	->name('news');
 Route::get('/news/{id}', [NewsController::class, 'show'])
 	->where('id', '\d+')
-    ->name('news.show');
+	->name('news.show');
 
 //categories
 Route::get('/categories', [CategoryController::class, 'index'])
 	->name('categories');
 Route::get('/categories/{id}', [CategoryController::class, 'show'])
 	->where('id', '\d+')
-    ->name('categories.show');
+	->name('categories.show');
 
-Route::get('/about', function() {
-	return "Laravel Project";
-});
+//about
+Route::get('/about', [AboutController::class, 'index'])
+	->name('about');
+Route::get('/about/{id}', [AboutController::class, 'show'])
+	->where('id', '\d+')
+	->name('about.show');

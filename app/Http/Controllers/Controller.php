@@ -26,4 +26,8 @@ class Controller extends BaseController
 		'Categories 4',
 		'Categories 5'
 	];
+
+	protected array $aboutList = [
+    	'Laravel Project'
+	];
 }
