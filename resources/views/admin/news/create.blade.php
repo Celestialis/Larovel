@@ -1,30 +1,38 @@
 @extends('layouts.admin')
-
+@section('title') Добавить новость - @parent @stop
 @section('content')
-    <h2>Добавить новость</h2>
-    <div>
-        <form method="post" action="{{ route('news.store') }}">
-            @csrf
-            <div class="form-group">
-                <label for="title">Заголовок *</label>
-                <input type="text" class="form-control" name="title" id="title">
-            </div>
-            <div class="form-group">
-                <label for="logo">Логотип</label>
-                <input type="file" class="form-control" name="logo" id="logo">
-            </div>
-            <div class="form-group">
-                <label for="description">Описание</label>
-                <textarea name="form-control" name="description" id="description"></textarea>
-            </div>
-            <div class="form-feedback">
-                <label>Ваше имя: <input type="text" name="name"></label><br>
-                <label>Ваша фамилия: <input type="text" name="lastname"></label><br>
-                <label>Ваш email: <input type="text" name="email"></label><br>
-                <label>Ваш номер: <input type="number" name="number"></label>
-            </div>
+    <div class="col-md-8">
         <br>
-            <button class="btn btn-success" type="submit">Добавить новость</button>
-        </form>
+        <h1 class="h2">Добавить новость</h1>
+        <div>
+            @if($errors->any())
+                @foreach($errors->all() as $error)
+                    <div class="alert alert-danger">{{ $error }}</div>
+                @endforeach
+            @endif
+
+            <form method="post" action="{{ route('news.store', ['name' => 'test']) }}">
+                @csrf
+                <div class="form-group">
+                    <label for="title">Заголовок *</label>
+                    <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}">
+                </div>
+                <div class="form-group">
+                    <label for="slug">Слаг *</label>
+                    <input type="text" class="form-control" name="slug" id="slug" value="{{ old('slug') }}">
+                </div>
+                <div class="form-group">
+                    <label for="image">Логотип</label>
+                    <input type="file" class="form-control" name="image" id="image">
+                </div>
+                <div class="form-group">
+                    <label for="description">Описание *</label>
+                    <textarea class="form-control" name="description" id="description">{!! old('description') !!}</textarea>
+                </div>
+                <br>
+                <button class="btn btn-success" type="submit">Добавить новость</button>
+            </form>
+
+        </div>
     </div>
 @endsection
