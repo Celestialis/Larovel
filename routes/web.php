@@ -1,7 +1,5 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,45 +10,33 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
-use App\Http\Controllers\Admin\AboutController as AdminAboutController;
-
 Route::get('/', function () {
-	return view('welcome');
+    return view('welcome');
 });
-
-Route::get('/hello/{name}', function (string $name) {
-	return "Hello, " . $name;
-});
-
 //admin
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin'], function() {
 	Route::resource('/categories', AdminCategoryController::class);
 	Route::resource('/news', AdminNewsController::class);
 });
-
 //news
 Route::get('/news', [NewsController::class, 'index'])
 	->name('news');
-Route::get('/news/{id}', [NewsController::class, 'show'])
+Route::get('/news/{news}', [NewsController::class, 'show'])
 	->where('id', '\d+')
-	->name('news.show');
-
-//categories
-Route::get('/categories', [CategoryController::class, 'index'])
+    ->name('news.show');
+Route::get('/categories', [CategoriesController::class, 'index'])
 	->name('categories');
-Route::get('/categories/{id}', [CategoryController::class, 'show'])
+Route::get('/categories/{categories}', [CategoriesController::class, 'show'])
 	->where('id', '\d+')
-	->name('categories.show');
+    ->name('categories.show');
 
-//about
-Route::get('/about', [AboutController::class, 'index'])
-	->name('about');
-Route::get('/about/{id}', [AboutController::class, 'show'])
-	->where('id', '\d+')
-	->name('about.show');
+Route::get('/collections', function() {
+	 $collection = collect([
+	 	10, 15, 20, 25,30,50,75,100
+	 ]);
+
+	 dd($collection->map(fn($item) => $item *2)->count());
+});

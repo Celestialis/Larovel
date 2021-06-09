@@ -16,7 +16,7 @@ class CategoryController extends Controller
 	public function show(int $id)
 	{
 		return view('categories.show', [
-			'id' => $id
+			'categories' => $categories
 		]);
 	}
 }

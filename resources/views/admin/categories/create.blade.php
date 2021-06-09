@@ -1,19 +1,30 @@
 @extends('layouts.admin')
-
+@section('title') Добавить категорию - @parent @stop
 @section('content')
-    <h2>Добавить категорию</h2>
-    <div>
-        <form method="post" action="{{ route('categories.store') }}">
-            @csrf
-            <div class="form-feedback">
-                <label>Ваше имя: <input type="text" name="name"></label><br>
-                <label>Ваш email: <input type="text" name="email"></label><br>
-                <label>Ваш номер: <input type="number" name="number"></label><br>
-                <label for="description">Пожелание</label>
-                <textarea name="form-control" name="description" id="description"></textarea>
-            </div>
+    <div class="col-md-8">
         <br>
-            <button class="btn btn-success" type="submit">Добавить категорию</button>
-        </form>
+        <h1 class="h2">Добавить категорию</h1>
+        <div>
+            @if($errors->any())
+                @foreach($errors->all() as $error)
+                    <div class="alert alert-danger">{{ $error }}</div>
+                @endforeach
+            @endif
+            <form method="post" action="{{ route('news.store', ['name' => 'test']) }}">
+                @csrf
+                <div class="form-group">
+                    <label for="id">Категория *</label>
+                    <input type="text" class="form-control" name="title" id="title">
+
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Описание *</label>
+                    <textarea class="form-control" name="description" id="description">{!! old('description') !!}</textarea>
+                </div>
+                <br>
+                <button class="btn btn-success" type="submit">Добавить категорию</button>
+            </form>
+        </div>
     </div>
 @endsection

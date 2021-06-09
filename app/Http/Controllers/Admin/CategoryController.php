@@ -1,12 +1,8 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Models\News;
 use Illuminate\Http\Request;
-
 class CategoryController extends Controller
 {
     /**
@@ -16,13 +12,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $model = new Category();
-        $categories = $model->categoryList();
+    	$categories = Category::paginate(5);
         return view('admin.categories.index',[
-            'categories' => $categories
-        ]);
+        	'categories' => $categories
+		]);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -30,9 +24,11 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        $categories = Category::all();
+		return view('admin.categories.create', [
+			'categories' => $categories
+		]);
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -41,10 +37,22 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $fields = $request->only(['name','number', 'description']);
-        dd($fields);
+        {
+            $request->validate([
+                'title' => ['required']
+            ]);
+    
+            $fields = $request->only('id', 'title', 'description', 'image');
+    
+            $news = Category::create($fields);
+            if($news) {
+                return redirect()->route('categories.index');
+            }
+    
+    
+            return back();
+        }
     }
-
     /**
      * Display the specified resource.
      *
@@ -55,7 +63,6 @@ class CategoryController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -64,11 +71,13 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-		return view('admin.categories.edit', [
-			'id' => $id
-		]);
+        {
+            $categories = Category::all();
+            return view('admin.categories.edit', [
+                'categories' => $categories
+            ]);
+        }
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -80,7 +89,6 @@ class CategoryController extends Controller
     {
         //
     }
-
     /**
      * Remove the specified resource from storage.
      *
