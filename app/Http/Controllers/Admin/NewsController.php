@@ -1,13 +1,11 @@
 <?php
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NewsCreate;
 use App\Models\Category;
 use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-
 class NewsController extends Controller
 {
 	/**
@@ -20,12 +18,10 @@ class NewsController extends Controller
 		$news = News::with('category')
 			->orderBy('id', 'desc')
 			->paginate(5);
-
 		return view('admin.news.index', [
 			'newsList' => $news
 		]);
 	}
-
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -38,7 +34,6 @@ class NewsController extends Controller
 			'categories' => $categories
 		]);
 	}
-
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -47,7 +42,7 @@ class NewsController extends Controller
 	 */
 	public function store(NewsCreate $request)
 	{
-		$fields = $request->only('category_id', 'title', 'description', 'image');
+		$fields = $request->validated();
 		$fields['slug'] = \Str::slug($fields['title']);
 
 		$news = News::create($fields);
@@ -56,6 +51,7 @@ class NewsController extends Controller
 		}
 
 		return back()->withInput();
+
 	}
 
 	/**
@@ -68,7 +64,6 @@ class NewsController extends Controller
 	{
 		//
 	}
-
 	/**
 	 * Show the form for editing the specified resource.
 	 *
@@ -82,7 +77,6 @@ class NewsController extends Controller
 			'categories' => $categories
 		]);
 	}
-
 	/**
 	 * Update the specified resource in storage.
 	 *
@@ -97,17 +91,12 @@ class NewsController extends Controller
 		]);
 		$fields = $request->only('category_id', 'title', 'description', 'image', 'status');
 		$fields['slug'] = \Str::slug($fields['title']);
-
-
 		$news = $news->fill($fields)->save();
 		if ($news) {
 			return redirect()->route('news.index');
 		}
-
-
 		return back();
 	}
-
 	/**
 	 * Remove the specified resource from storage.
 	 *
