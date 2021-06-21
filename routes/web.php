@@ -61,3 +61,10 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/parser', [ParserController::class, 'index']);
+
+Route::group(['middleware' => 'guest'], function() {
+	Route::get('/login/vk', [SocialController::class, 'login'])
+		->name('vk.login');
+	Route::get('/callback/vk', [SocialController::class, 'callback'])
+		->name('vk.callback');
+});
