@@ -10,7 +10,8 @@
                     <div class="alert alert-danger">{{ $error }}</div>
                 @endforeach
             @endif
-            <form method="post" action="{{ route('news.store', ['name' => 'test']) }}">
+
+            <form method="post" action="{{ route('news.store', ['name' => 'test']) }}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="category_id">Категория *</label>
@@ -28,7 +29,6 @@
                             @endforeach
                         </div>
                     @endif
-
                 </div>
                 <div class="form-group">
                     <label for="title">Заголовок *</label>
@@ -42,7 +42,6 @@
                         </div>
                     @endif
                 </div>
-
                 <div class="form-group">
                     <label for="image">Логотип</label>
                     <input type="file" class="form-control" name="image" id="image">

@@ -11,7 +11,7 @@
                 @endforeach
             @endif
 
-            <form method="post" action="{{ route('news.update', ['news' => $news]) }}">
+            <form method="post" action="{{ route('news.update', ['news' => $news]) }}" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="form-group">
@@ -22,13 +22,11 @@
                             @if($category->id === $news->category_id) selected @endif>{{ $category->title }}</option>
                         @endforeach
                     </select>
-
                 </div>
                 <div class="form-group">
                     <label for="title">Заголовок *</label>
                     <input type="text" class="form-control" name="title" id="title" value="{{ $news->title }}">
                 </div>
-
                 <div class="form-group">
                     <label for="image">Логотип</label>
                     <input type="file" class="form-control" name="image" id="image">
@@ -48,10 +46,23 @@
                 <br>
                 <button class="btn btn-success" type="submit">Редактировать новость</button>
             </form>
-
         </div>
     </div>
 
 
 
 @endsection
+
+@push('js')
+    <script src="https://cdn.ckeditor.com/ckeditor5/28.0.0/classic/ckeditor.js"></script>
+    <script type="text/javascript">
+        ClassicEditor
+            .create( document.querySelector( '#description' ) )
+            .then( editor => {
+                console.log( editor );
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+@endpush
